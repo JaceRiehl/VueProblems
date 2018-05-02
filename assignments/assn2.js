@@ -1,11 +1,17 @@
-new Vue({
+$(function() {
+    new Vue({
         el: '#exercise',
         data: {
-            value: '2'
+            value: ''
+        },
+        methods: {
+            buttonClicked: function(){
+                alert('Button Clicked');
+            },
+            updateKeyDown: function(event){
+                this.value = event.target.value;
+            }
         }
-        methods:{
-        	showAlert: function(){
-        		alert("Button clicked");
-        	}
-        }
+
     });
+}
