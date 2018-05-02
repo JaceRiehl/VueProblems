@@ -21,5 +21,5 @@
         border: 2px solid blue;
         background-image: url(http://cdn.shopify.com/s/files/1/1580/3805/products/large-pheasant-pack_grande.jpg?v=1503673397);
     }
-s
+
 </style>
