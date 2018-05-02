@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VueJS</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+
+<div id="exercise">
+   <!-- 1) Fill the <p> below with your Name and Age - using Interpolation -->
+    <p>VueJS is pretty cool - {{YOUR_NAME}} ({{AGE}})</p>
+    <!-- 2) Output your age, multiplied by 3 -->
+    <p>{{AGE*3}} </p>
+    <!-- 3) Call a function to output a random float between 0 and 1 (Math.random()) -->
+    <p>{{computeFloat()}}</p>
+    <div>
+        <img style="width:100px;height:100px" v-bind:src="image">
+    </div>
+    <!-- 5) Pre-Populate this input with your name (set the "value" attribute) -->
+    <div>
+        <input type="text" v-bind:value="YOUR_NAME">
+</div>
+<script>
+new Vue({
+el: '#exercise',
+data: {
+    YOUR_NAME: "Jace Riehl",
+  AGE: 22,
+  image: "https://prehospitalandretrievalmedicine.files.wordpress.com/2015/02/unnamed.png"
+    },
+methods: {
+    computeFloat(){
+  return Math.random();
+  },
+  changeName(event){
+  this.YOUR_NAME = event.target.value; 
+  }
+}
+});
+</script>
+</body>
+</html>
