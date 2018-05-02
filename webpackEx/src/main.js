@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import Home from './home.vue'
 
+//global component
 Vue.component('app-servers',Home);
 new Vue({
   el: '#app',
