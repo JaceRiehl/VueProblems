@@ -8,14 +8,20 @@
 </template>
 
 <script>
+    import {eventBus} from '../main.js'
     export default{
         props: ['userAge'],
         methods: {
             editAge: function(){
-                this.userAge = 30;
-                this.$emit('ageEdited',this.userAge);
+                this.userAge = 32;
+                // this.$emit('ageEdited',this.userAge);
+                //were emitting a custom event through the bus, any other component can use it
+                //We can centralize this into where the bus was created:
+                // eventBus.$emit('ageEdited', this.userAge);
+                //And use it like this
+                eventBus.editAge(this.userAge);
             }
-        }
+        },
     }
 </script>
 

@@ -10,6 +10,7 @@
 </template>
 
 <script>
+    import {eventBus} from '../main.js'
 export default{
     //this property 'name' has to be the same as the parent.
     //by turning props into an object you can force the prop to have certain types
@@ -36,6 +37,11 @@ export default{
             //This emits a custom event that can be listened to by the parent using the component
             this.$emit('nameWasReset', this.myName);
         }
+    },
+    created(){
+        eventBus.$on('ageEdited', (age) => {
+            this.userAge = age;
+        });
     }
 }
 </script>
