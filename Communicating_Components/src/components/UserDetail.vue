@@ -3,7 +3,9 @@
         <h3>You may view the User Details here</h3>
         <p>Many Details</p>
         <button @click="resetName">Reset Name</button>
+        <button @click="resetFn">Reset Name without event</button>
         <p>User Name: {{myName}}</p>
+        <p>User Age: {{userAge}}</p>
     </div>
 </template>
 
@@ -22,7 +24,9 @@ export default{
             //required: true
             //The default value
             default: "You shouldnt see this"
-        }
+        },
+        resetFn: Function,
+        userAge: Number
     },
     methods: {
         //This only resets the name in the child
