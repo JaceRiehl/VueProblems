@@ -6,7 +6,12 @@
 
 <script>
     export default {
-
+        activated() {
+            console.log("in activated")
+        },
+        deactivated(){
+            console.log("in deactivated")
+        }
     }
 </script>
 

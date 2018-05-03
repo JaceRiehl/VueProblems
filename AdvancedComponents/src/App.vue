@@ -7,8 +7,13 @@
                 <button @click="selectedComponent='app-new'">New</button>
 
                 <hr>
-                <!--this is how to dynamically add or change components-->
-                <component :is="selectedComponent"> Default </component>
+
+                <!--this keeps our component from being destroyed when a new component is switched to-->
+                <!--with this we can use two new lifecycle hooks, activated and deactivated -->
+                <keep-alive>
+                    <!--this is how to dynamically add or change components-->
+                    <component :is="selectedComponent"> Default </component>
+                </keep-alive>
                <!--<app-quote>-->
                    <!--<h1 slot="title">{{quoteTitle}}</h1>-->
                    <!--<p>A Wonderful Quote!</p>-->
@@ -25,7 +30,7 @@
     export default {
         data() {
             return{
-                quoteTitle: 'A Quote',
+                quoteTitle: 'A Quotes',
                 selectedComponent: 'app-quote'
             }
         },
