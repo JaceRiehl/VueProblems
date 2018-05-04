@@ -24,6 +24,28 @@
                         >
                     <div class="alert alert-info" v-if="show">Some info</div>
                 </transition>
+                <transition :name="alertAnimation" mode="out-in">
+                    <div class="alert alert-info" v-if="show" key="info">Some info</div>
+                    <div class="alert alert-warning" v-else="!show" key="warning">This is a warning</div>
+                </transition>
+                <br>
+                <button class="btn btn-primary" @click="load = !load">Load/Remove Element</button>
+                <br><br>
+                <!--animation with javascript-->
+                <transition
+                    @before-enter="beforeEnter"
+                    @enter="enter"
+                    @after-enter="afterEnter"
+                    @enter-cancelled="enterCancelled"
+
+                    @before-leave="beforeLeave"
+                    @leave="leave"
+                    @after-leave="afterLeave"
+                    @leave-cancelled="leaveCancelled"
+                    <!--this is important to tell vue that css animation wont be used, and instead javascript will be-->
+                    :css="false">
+                    <div style="width: 300px; height: 100px; background-color: lightgreen;" v-if="load"></div>
+                </transition>
             </div>
         </div>
     </div>
@@ -34,7 +56,63 @@
         data() {
             return {
                 show: true,
-                alertAnimation: 'fade'
+                alertAnimation: 'fade',
+                load: false,
+                elementWidth: 100
+            }
+        },
+        methods: {
+            beforeEnter(el) {
+                console.log('Before Enter');
+                this.elementWidth = 100;
+                el.style.width = this.elementWidth + 'px';
+            },
+            enter(el, done) {
+                console.log('Enter');
+                let round = 1;
+
+                const interval = setInterval(() => {
+                    el.style.width = (this.elementWidth + round * 10) + 'px';
+                    round++;
+                    if(round > 20) {
+                        clearInterval(interval);
+                        //This is important to tell JS that the animation is finished, it can't infer it by itself
+                        done();
+                    }
+                },20);
+
+
+            },
+            afterEnter(el) {
+                console.log("After Enter");
+            },
+            enterCancelled(el) {
+              console.log('Enter Cancelled');
+            },
+            beforeLeave(el) {
+                console.log('Before Leave');
+                this.elementWidth = 300;
+                el.style.width = this.elementWidth + 'px';
+            },
+            leave(el, done) {
+                console.log('Leave');
+                let round = 1;
+
+                const interval = setInterval(() => {
+                    el.style.width = (this.elementWidth - round * 10) + 'px';
+                    round++;
+                    if(round > 20) {
+                        clearInterval(interval);
+                        //This is important to tell JS that the animation is finished, it can't infer it by itself
+                        done();
+                    }
+                },20);
+            },
+            afterLeave(el) {
+                console.log('After Leave');
+            },
+            leaveCancelled(el) {
+                console.log('Leave Cancelled');
             }
         }
     }
