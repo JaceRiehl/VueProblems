@@ -41,10 +41,16 @@
                     @before-leave="beforeLeave"
                     @leave="leave"
                     @after-leave="afterLeave"
-                    @leave-cancelled="leaveCancelled"
+                    @leave-cancelled="leaveCancelled">
                     <!--this is important to tell vue that css animation wont be used, and instead javascript will be-->
                     :css="false">
                     <div style="width: 300px; height: 100px; background-color: lightgreen;" v-if="load"></div>
+                </transition>
+                <hr>
+                <button class="btn btn-primary" @click="changeComponents">Toggle Components</button>
+                <br> <br>
+                <transition name="fade" mode="out-in">
+                <component :is="selectedComponent"></component>
                 </transition>
             </div>
         </div>
@@ -52,13 +58,16 @@
 </template>
 
 <script>
+    import Success from './SuccessAlert.vue'
+    import Danger from './DangerAlert.vue'
     export default {
         data() {
             return {
                 show: true,
                 alertAnimation: 'fade',
                 load: false,
-                elementWidth: 100
+                elementWidth: 100,
+                selectedComponent: 'app-success-alert'
             }
         },
         methods: {
@@ -113,7 +122,15 @@
             },
             leaveCancelled(el) {
                 console.log('Leave Cancelled');
+            },
+            changeComponents() {
+                this.selectedComponent == 'app-success-alert' ? this.selectedComponent = 'app-danger-alert' : this.selectedComponent = 'app-success-alert';
             }
+        },
+
+        components: {
+            'app-danger-alert': Danger,
+            'app-success-alert': Success
         }
     }
 </script>
