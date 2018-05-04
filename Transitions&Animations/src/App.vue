@@ -46,12 +46,31 @@
                     :css="false">
                     <div style="width: 300px; height: 100px; background-color: lightgreen;" v-if="load"></div>
                 </transition>
+
                 <hr>
+                <!--Animating dynamic components-->
                 <button class="btn btn-primary" @click="changeComponents">Toggle Components</button>
                 <br> <br>
                 <transition name="fade" mode="out-in">
                 <component :is="selectedComponent"></component>
                 </transition>
+
+                <hr>
+                <!--Animating groups of lists-->
+                <button class="btn btn-primary" @click="addItem">Add Item</button>
+                <br>
+
+                <ul class="list-group">
+                    <transition-group name="slide">
+                        <li
+                                class="list-group-item"
+                                v-for="(number,index) in numbers"
+                                @click=removeItem(index)
+                                style="cursor: pointer"
+                                :key="number">{{number}}</li>
+                    </transition-group>
+                </ul>
+
             </div>
         </div>
     </div>
@@ -67,7 +86,8 @@
                 alertAnimation: 'fade',
                 load: false,
                 elementWidth: 100,
-                selectedComponent: 'app-success-alert'
+                selectedComponent: 'app-success-alert',
+                numbers: [1,2,3,4,5]
             }
         },
         methods: {
@@ -125,7 +145,15 @@
             },
             changeComponents() {
                 this.selectedComponent == 'app-success-alert' ? this.selectedComponent = 'app-danger-alert' : this.selectedComponent = 'app-success-alert';
+            },
+            addItem(){
+                const pos = Math.floor(Math.random() * this.numbers.length);
+                this.numbers.splice(pos,0,this.numbers.length + 1)
+            },
+            removeItem(index){
+                this.numbers.splice(index,1);
             }
+
         },
 
         components: {
@@ -172,6 +200,12 @@
         animation: slide-out 1s ease-out forwards;
         transition: opacity 1s;
         opacity: 0;
+        /*this is essential to make sure that when an item is removed it will interact with the position correctly*/
+        position: absolute;
+    }
+    /*were given access to this by naming the transition group slide*/
+    .slide-move {
+        transition: transform 1s;
     }
     
     @keyframes slide-in {
