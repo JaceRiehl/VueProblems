@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
-import {routes} from './Routes'
+import { routes } from './Routes.js'
 
-Vue.user(VueRouter);
+Vue.use(VueRouter);
 
 const router = new VueRouter({
-  routes
+  routes: routes
 });
 new Vue({
-  el: '#app',
-    router,
-  render: h => h(App)
+    el: '#app',
+    router: router,
+    render: h => h(App)
 });
