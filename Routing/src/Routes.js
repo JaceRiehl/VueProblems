@@ -16,7 +16,10 @@ export const routes = [
         'header-bottom': Header}, children: [
             {path: '', component: UserStart, name: 'home'},
             //id is a flexible element
-            {path:':id', component: UserDetail},
+            {path:':id', component: UserDetail, beforeEnter: (to,from,next) => {
+            console.log('This function can also be created in the component');
+            next();
+}},
             {path:':id/edit', component: UserEdit, name: 'userEdit'}
         ]},
     //this is a specific redirection
